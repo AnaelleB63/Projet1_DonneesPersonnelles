@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurtleActu - Toute l'info en direct</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="main-container">
+        <main class="news-site">
+            <header class="site-header">
+                <div class="logo">
+                    <img src="img/logo.png" alt="Logo TurtleActu" class="site-logo-img">
+                    <div class="logo-text">Turtle<span>Actu</span></div>
+                </div>
+                <nav class="categories">
+                    <span>Politique</span>
+                    <span>Économie</span>
+                    <span>Sport</span>
+                </nav>
+            </header>
+
+            <section class="hero-article">
+                <div class="hero-image-container">
+                    <img src="img/grand_nord.jpg" alt="Grand Nord" class="article-img">
+                </div>
+                <div class="hero-content">
+                    <div class="badge">À LA UNE</div>
+                    <h1>Nouvelle découverte majeure dans le Grand Nord</h1>
+                    <p>Des chercheurs ont identifié des traces de micro-organismes datant de plusieurs millions d'années...</p>
+                    <div class="read-more">Lire la suite...</div>
+                </div>
+            </section>
+
+            <section class="news-grid">
+                <div class="article-card">
+                    <div class="image">
+                        <img src="img/prix_electricite.jpg" alt="Prix electricite" class="article-img">
+                    </div>
+                    <h3>Le prix de l'électricité va-t-il baisser ?</h3>
+                </div>
+                <div class="article-card">
+                    <div class="image">
+                        <img src="img/vague_chaleur.jpg" alt="Prix electricite" class="article-img">
+                    </div>
+                    <h3>Météo : une vague de chaleur arrive.</h3>
+                </div>
+            </section>
+
+            <div id="cookie-banner" class="cookie-banner">
+                <div class="banner-content">
+                    <h3>Respect de votre vie privée</h3>
+                    <p>Nous utilisons des traceurs pour stocker et accéder à vos données personnelles afin de vous proposer des publicités ciblées.</p>
+                </div>
+                <div class="banner-actions">
+                    <button id="btn-accept" class="btn-primary">Accepter & Fermer</button>
+                    <button class="btn-secondary">Paramétrer</button>
+                </div>
+            </div>
+        </main>
+
+        <aside class="data-monitor">
+            <div class="monitor-header">
+                <h2>CONSOLE DE TRAÇAGE</h2>
+                <div class="status">● SCANNER ACTIF</div>
+            </div>
+            <div id="logs" class="logs-container">
+                <div class="log-entry system">En attente d'interaction utilisateur...</div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
