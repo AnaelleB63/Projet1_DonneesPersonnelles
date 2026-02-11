@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TurtleActu - Toute l'info en direct</title>
+    <title>ActuTortue - Toute l'info en direct</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,8 +12,8 @@
         <main class="news-site">
             <header class="site-header">
                 <div class="logo">
-                    <img src="img/logo.png" alt="Logo TurtleActu" class="site-logo-img">
-                    <div class="logo-text">Turtle<span>Actu</span></div>
+                    <img src="img/logo.png" alt="Logo ActuTortue" class="site-logo-img">
+                    <div class="logo-text">Actu<span>Tortue</span></div>
                 </div>
                 <nav class="categories">
                     <span>Politique</span>
@@ -24,7 +24,7 @@
 
             <section class="hero-article">
                 <div class="hero-image-container">
-                    <img src="img/grand_nord.jpg" alt="Grand Nord" class="article-img">
+                    <img src="img/grand_nord.jpg" alt="Grand Nord" class="article-img" data-tag="Écologie/Science" id="pixel-nord">
                 </div>
                 <div class="hero-content">
                     <div class="badge">À LA UNE</div>
@@ -34,31 +34,52 @@
                 </div>
             </section>
 
-            <section class="news-grid">
-                <div class="article-card">
-                    <div class="image">
-                        <img src="img/prix_electricite.jpg" alt="Prix electricite" class="article-img">
+            <div class="content-wrapper">
+    
+                <section class="news-column">
+                    <div class="article-card">
+                        <div class="image">
+                            <img src="img/prix_electricite.jpg" alt="Prix électricité" class="article-img" data-tag="Économie/Crise">
+                        </div>
+                        <h3>Le prix de l'électricité va-t-il baisser ?</h3>
                     </div>
-                    <h3>Le prix de l'électricité va-t-il baisser ?</h3>
-                </div>
-                <div class="article-card">
-                    <div class="image">
-                        <img src="img/vague_chaleur.jpg" alt="Prix electricite" class="article-img">
+                    
+                    <div class="article-card">
+                        <div class="image">
+                            <img src="img/vague_chaleur.jpg" alt="Vague chaleur" class="article-img" data-tag="Météo/Climat">
+                        </div>
+                        <h3>Météo : une vague de chaleur arrive.</h3>
                     </div>
-                    <h3>Météo : une vague de chaleur arrive.</h3>
-                </div>
-            </section>
+                </section>
 
-            <div id="cookie-banner" class="cookie-banner">
-                <div class="banner-content">
-                    <h3>Respect de votre vie privée</h3>
-                    <p>Nous utilisons des traceurs pour stocker et accéder à vos données personnelles afin de vous proposer des publicités ciblées.</p>
-                </div>
+                <aside class="promos-column">
+                    <div class="promo-box">
+                        <span class="promo-title">Sponsorisé</span>
+                        <p style="font-size: 0.9rem; margin-bottom: 10px;">Envie d'évasion ?</p>
+                        <img src="img/grand_nord.jpg" style="width: 100%; height: 80px; object-fit: cover; border-radius: 4px;" data-tag="Pub/Voyage">
+                        <button class="promo-btn">Réserver -50%</button>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                        <h4 style="margin-bottom: 10px; color: #333;">🔥 Tendances</h4>
+                        <ul style="padding-left: 20px; font-size: 0.9rem; color: #555;">
+                            <li style="margin-bottom: 5px;">Politique : Élections</li>
+                            <li>Sport : Finale ce soir</li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+
+            <div class="cookie-banner" id="cookie-banner">
+                <p>🍪 <strong>Respect de votre vie privée</strong><br>
+                Nous utilisons des cookies pour améliorer votre expérience. En continuant, vous acceptez notre politique.</p>
                 <div class="banner-actions">
-                    <button id="btn-accept" class="btn-primary">Accepter & Fermer</button>
-                    <button class="btn-secondary">Paramétrer</button>
+                    <button class="btn-primary" onclick="document.getElementById('cookie-banner').style.display='none'; logEvent('CONSENTEMENT', 'Utilisateur a cliqué ACCEPTER.')">Tout Accepter</button>
+                    <button class="btn-secondary" onclick="document.getElementById('cookie-banner').style.display='none'; logEvent('REFUS', 'Utilisateur a cliqué REFUSER (Trop tard, données déjà volées)')">Tout Refuser</button>
                 </div>
             </div>
+            
         </main>
 
         <aside class="data-monitor">

@@ -128,9 +128,70 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
     padding: 1.5rem; 
     font-family: 'Courier New', monospace;
     border-left: 2px solid #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 .monitor-header { border-bottom: 1px solid #333; padding-bottom: 1rem; margin-bottom: 1rem; }
+#logs {
+    overflow-y: auto; 
+    flex: 1;
+    padding-right: 10px;
+}
 .status { font-size: 0.8rem; color: #00ff41; }
 
 .log-entry { font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4; border-left: 2px solid #00ff41; padding-left: 10px; }
 .system { color: #888; border-color: #444; }
+
+.content-wrapper {
+    display: flex; /* Active le mode colonnes */
+    gap: 20px;     /* Espace entre les articles et la pub */
+    margin-top: 20px;
+}
+
+/* Colonne de Gauche (Articles) */
+.news-column {
+    flex: 3; /* Prend 75% de l'espace */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 articles côte à côte */
+    gap: 15px;
+}
+
+/* Colonne de Droite (Pubs & Tendances) */
+.promos-column {
+    flex: 1; /* Prend 25% de l'espace */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Design de la fausse pub */
+.promo-box {
+    background-color: #fff5f5;
+    border: 2px dashed #ff4444; /* Bordure rouge pointillée visible */
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.promo-title {
+    color: #d9534f;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.promo-btn {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+}
