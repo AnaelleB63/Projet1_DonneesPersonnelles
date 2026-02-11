@@ -64,7 +64,7 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
 
 .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .article-card { border: 1px solid #eee; padding: 1rem; border-radius: 8px; }
-.img-placeholder { background: #ddd; height: 100px; border-radius: 4px; margin-bottom: 0.5rem; }
+
 
 /* --- GESTION DES IMAGES --- */
 
