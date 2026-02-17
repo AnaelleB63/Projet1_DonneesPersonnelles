@@ -1,7 +1,12 @@
+let contenuLogsTxt = "--- JOURNAL DE TRAÇAGE ACTUTORTUE ---\n\n";
+
 // --- FONCTION UTILITAIRE : ÉCRIRE DANS LA CONSOLE ---
 function logEvent(type, message, details = "") {
     const logsContainer = document.getElementById('logs');
-    const now = new Date().toLocaleTimeString();
+    const now = new Date();
+    
+    const timestamp = now.toLocaleTimeString();
+    const isoString = now.toISOString();
 
     // Création de l'élément HTML du log
     const logEntry = document.createElement('div');
@@ -20,6 +25,14 @@ function logEvent(type, message, details = "") {
 
     // On ajoute le log en haut de la liste
     logsContainer.prepend(logEntry);
+
+    // --- PARTIE JOURNALISATION (Pour le fichier .txt) ---
+    // On nettoie les tags HTML éventuels du message pour avoir un texte propre dans le .txt
+    const cleanDetails = details.replace(/<[^>]*>?/gm, ''); 
+    contenuLogsTxt += `[${isoString}] ${type.toUpperCase()}\n`;
+    contenuLogsTxt += `Message: ${message}\n`;
+    if (details) contenuLogsTxt += `Détails: ${cleanDetails}\n`;
+    contenuLogsTxt += `-------------------------------------------\n`;
 }
 
 // --- PARTIE 1 : SIMULATION DU PIXEL DE CHARGEMENT ---
@@ -108,3 +121,15 @@ imagesArticles.forEach(image => {
         }
     });
 });
+
+// --- ÉTAPE FINALE : EXPORTATION DU FICHIER TXT ---
+// Cette fonction est appelée par le bouton dans votre HTML
+function genererFichierLogs() {
+    const blob = new Blob([contenuLogsTxt], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'journal_tracage_actutortue.txt';
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
