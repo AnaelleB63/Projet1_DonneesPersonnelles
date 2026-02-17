@@ -58,7 +58,7 @@ window.addEventListener('load', () => {
         logEvent('CAPTURE TECHNIQUE', 'Données identifiantes exfiltrées :', 
             `<strong>IP (Simulée):</strong> ${fakeIP} <br>
              <strong>Source:</strong> ${referrer} <br>
-             <strong>Système:</strong> ${userAgent.substring(13, 50)}...<br>
+             <strong>Système:</strong> ${userAgent}<br>
              <strong>Langue:</strong> ${language} | <strong>Écran:</strong> ${screenWidth}px <br>
              <strong>CPU:</strong> ${cores} cœurs logiques`
         );
