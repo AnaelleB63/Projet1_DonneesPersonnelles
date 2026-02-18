@@ -195,3 +195,16 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
     margin-top: 10px;
     font-weight: bold;
 }
+
+/* Style pour les requêtes HTTP simulées */
+.network-log {
+    color: #00ffff; /* Cyan hacker */
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    word-break: break-all; /* Permet de couper les longues URL */
+    margin-top: 5px;
+    padding: 5px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px dashed #00aaaa;
+    border-radius: 4px;
+}

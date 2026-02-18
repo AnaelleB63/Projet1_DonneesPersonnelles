@@ -16,6 +16,7 @@ function logEvent(type, message, details = "") {
     if (type === 'CAPTURE TECHNIQUE') logEntry.style.borderLeftColor = 'red';
     if (type === 'PROFILAGE') logEntry.style.borderLeftColor = 'yellow';
     if (type === 'PUBLICITÉ CIBLÉE') logEntry.style.borderLeftColor = 'grey';
+    if (type === 'HTTP REQUEST') logEntry.style.borderLeftColor = '#00ffff';
 
     logEntry.innerHTML = `
         <span style="opacity:0.6">[${now}]</span> <strong>${type}</strong><br>
@@ -35,37 +36,65 @@ function logEvent(type, message, details = "") {
     contenuLogsTxt += `-------------------------------------------\n`;
 }
 
-// --- PARTIE 1 : SIMULATION DU PIXEL DE CHARGEMENT ---
+// --- SIMULATEUR DE REQUÊTE RÉSEAU ---
+function simulateNetworkRequest(endpoint, params) {
+    // On transforme l'objet de paramètres en chaîne URL (ex: ?id=123&tag=sport)
+    const queryString = Object.entries(params)
+        .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
+        .join('&');
+    
+    // Fausse URL de serveur de tracking
+    const fullUrl = `GET https://api.actutortue-ads.com/${endpoint}?${queryString}`;
+    
+    const networkDisplay = `<div class="network-log">${fullUrl}</div>`;
+    
+    logEvent('HTTP REQUEST', 'Envoi de données au serveur distant...', networkDisplay);
+}
+
+// --- CHARGEMENT DU PIXEL INVISIBLE ---
 // Ce code s'exécute dès que la page est chargée, sans action de l'utilisateur.
 window.addEventListener('load', () => {
     
-    // 1. Récupération des vraies données techniques ACCESSIBLES en JS
+    // Récupération des vraies données techniques ACCESSIBLES en JS
     const userAgent = navigator.userAgent;
-    const screenWidth = window.screen.width + "x" + window.screen.height;
+    const screenRes = window.screen.width + "x" + window.screen.height;
     const language = navigator.language;
     const referrer = document.referrer || "Accès direct"; // D'où vient le visiteur ?
     const cores = navigator.hardwareConcurrency || "Inconnu"; // Nombre de coeurs du processeur
 
-    // 2. Simulation de l'IP (JS ne peut pas la lire en local sans API externe)
+    // Simulation de l'IP 
     const fakeIP = "92.168." + Math.floor(Math.random() * 255) + "." + Math.floor(Math.random() * 255);
+    // Faux ID utilisateur (cookie simulé)
+    const fakeUserID = "uid_" + Math.random().toString(36).substr(2, 9);
 
     setTimeout(() => {
         logEvent('CONNEXION', 'Initialisation du Tracker publicitaire (pixel.gif)');
     }, 500);
 
     setTimeout(() => {
-        // On affiche les données (Vraies + Simulées pour l'exemple)
+        // affiche les données (Vraies + Simulées pour l'exemple)
         logEvent('CAPTURE TECHNIQUE', 'Données identifiantes exfiltrées :', 
             `<strong>IP (Simulée):</strong> ${fakeIP} <br>
              <strong>Source:</strong> ${referrer} <br>
              <strong>Système:</strong> ${userAgent}<br>
-             <strong>Langue:</strong> ${language} | <strong>Écran:</strong> ${screenWidth}px <br>
+             <strong>Langue:</strong> ${language} | <strong>Écran:</strong> ${screenRes}px <br>
              <strong>CPU:</strong> ${cores} cœurs logiques`
         );
     }, 1500);
+
+    setTimeout(() => {
+        // On montre la REQUÊTE HTTP (Ce que le serveur reçoit vraiment)
+        simulateNetworkRequest('pixel.gif', {
+            ip: fakeIP,
+            ua: userAgent,
+            lang: navigator.language,
+            res: screenRes,
+            ref: document.referrer || 'direct'
+        });
+    }, 1000); // Délai réaliste
 });
 
-// --- PARTIE 2 : LE PROFILAGE PAR CENTRE D'INTÉRÊT ---
+// --- LE PROFILAGE PAR CENTRE D'INTÉRÊT ---
 // On détecte quand l'utilisateur passe sa souris sur une image d'article, 
 // et on récupère le thème de l'article grâce à un attribut data-tag qu'on a ajouté dans le HTML.
 
@@ -78,52 +107,57 @@ imagesArticles.forEach(image => {
         const interet = image.getAttribute('data-tag');
         
         if (interet) {
-            logEvent('PROFILAGE', `L'utilisateur regarde l'image : "${image.alt}"`, 
-                `>> Tag ajouté au profil publicitaire : <strong>${interet}</strong>`
-            );
+            simulateNetworkRequest('collect_event', {
+                event: 'hover',
+                target: image.alt,
+                tag: interet,
+                timestamp: Date.now()
+            });
 
-            // --- CONSÉQUENCE VISIBLE (Reciblage Publicitaire) ---
-    
-            // On cible l'image de la pub dans la colonne de droite
-            const pubImage = document.querySelector('.promo-box img');
-            const pubBouton = document.querySelector('.promo-btn');
-            const pubTitre = document.querySelector('.promo-box p');
-
-            // Si l'utilisateur regarde la chaleur, on lui vend de la clim
-            if (interet === 'Météo/Climat') {
-                pubImage.src = 'img/vague_chaleur.jpg'; // On pourrait mettre une image de clim si tu en as une
-                pubTitre.innerText = 'Trop chaud ?';
-                pubBouton.innerText = 'Acheter un Climatiseur';
-                pubBouton.style.background = '#ff8800';
-                
-                logEvent('PUBLICITÉ CIBLÉE', 'Mise à jour de la bannière pub', 'L\'algorithme affiche une pub pour : Climatisation');
-            }
-            
-            // Si l'utilisateur regarde l'économie, on lui vend de l'or ou des panneaux solaires
-            else if (interet === 'Économie/Crise') {
-                pubImage.src = 'img/prix_electricite.jpg';
-                pubTitre.innerText = 'Réduisez vos factures !';
-                pubBouton.innerText = 'Installer Panneaux Solaires';
-                pubBouton.style.background = '#2e7838';
-                
-                logEvent('PUBLICITÉ CIBLÉE', 'Mise à jour de la bannière pub', 'L\'algorithme affiche une pub pour : Énergie Solaire');
-            }
-
-            // Si l'utilisateur regarde l'écologie, on lui vend de l'énergie verte
-            else if (interet === 'Écologie/Science') {
-                pubImage.src = 'img/grand_nord.jpg';
-                pubTitre.innerText = 'Passez à l\'énergie verte !';
-                pubBouton.innerText = 'Découvrir les offres vertes';
-                pubBouton.style.background = '#5fcc30';
-
-                logEvent('PUBLICITÉ CIBLÉE', 'Mise à jour de la bannière pub', 'L\'algorithme affiche une pub pour : Énergie Verte');
-            }
+            setTimeout(() => {
+                logEvent('PROFILAGE', `Intérêt détecté pour : "${image.alt}"`, 
+                    `>> Tag ajouté : <strong>${interet}</strong>`
+                );
+                updateAds(interet); // On lance la mise à jour de la pub
+            }, 300); 
         }
     });
 });
 
+// --- FONCTION DE MISE À JOUR DE LA PUB ---
+function updateAds(interet) {
+    const pubImage = document.querySelector('.promo-box img');
+    const pubBouton = document.querySelector('.promo-btn');
+    const pubTitre = document.querySelector('.promo-zone p');
+
+    // Sécurité : si Adblock a quand même supprimé la pub, on ne fait rien pour ne pas planter
+    if (!pubImage) return; 
+
+    if (interet === 'Météo/Climat') {
+        pubImage.src = 'img/vague_chaleur.jpg'; 
+        pubTitre.innerText = 'Trop chaud chez vous ?';
+        pubBouton.innerText = 'Climatiseurs en Promo';
+        pubBouton.style.background = '#ff8800'; // Orange
+        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Climatisation');
+    }
+    else if (interet === 'Économie/Crise') {
+        pubImage.src = 'img/prix_electricite.jpg';
+        pubTitre.innerText = 'Facture trop élevée ?';
+        pubBouton.innerText = 'Panneaux Solaires';
+        pubBouton.style.background = '#2e7838'; // Vert
+        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Solaire');
+    }
+    else if (interet === 'Écologie/Science') {
+        pubImage.src = 'img/grand_nord.jpg';
+        pubTitre.innerText = 'Voyage Éco-Responsable';
+        pubBouton.innerText = 'Découvrir';
+        pubBouton.style.background = '#00aaaa'; // Cyan
+        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Tourisme Vert');
+    }
+}
+
+
 // --- ÉTAPE FINALE : EXPORTATION DU FICHIER TXT ---
-// Cette fonction est appelée par le bouton dans votre HTML
 function genererFichierLogs() {
     const blob = new Blob([contenuLogsTxt], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);
