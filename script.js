@@ -128,34 +128,36 @@ imagesArticles.forEach(image => {
 function updateAds(interet) {
     const pubImage = document.querySelector('.promo-box img');
     const pubBouton = document.querySelector('.promo-btn');
-    const pubTitre = document.querySelector('.promo-zone p');
+    const pubTitre = document.querySelector('.promo-box p'); 
 
     // Sécurité : si Adblock a quand même supprimé la pub, on ne fait rien pour ne pas planter
-    if (!pubImage) return; 
 
-    if (interet === 'Météo/Climat') {
-        pubImage.src = 'img/vague_chaleur.jpg'; 
-        pubTitre.innerText = 'Trop chaud chez vous ?';
-        pubBouton.innerText = 'Climatiseurs en Promo';
-        pubBouton.style.background = '#ff8800'; // Orange
-        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Climatisation');
+    if (!pubImage || !pubTitre || !pubBouton) return; 
+
+    if (interet === 'Écologie/Science') {
+        pubImage.src = 'img/grand_nord.jpg'; 
+        pubTitre.innerText = 'Voyage Éco-Responsable';
+        pubBouton.innerText = 'Découvrir';
+        pubBouton.style.background = '#0077cc'; 
+        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Tourisme Vert');
     }
     else if (interet === 'Économie/Crise') {
         pubImage.src = 'img/prix_electricite.jpg';
         pubTitre.innerText = 'Facture trop élevée ?';
         pubBouton.innerText = 'Panneaux Solaires';
-        pubBouton.style.background = '#2e7838'; // Vert
+        pubBouton.style.background = '#f1c40f'; 
+        pubBouton.style.color = '#000'; 
         logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Solaire');
     }
-    else if (interet === 'Écologie/Science') {
-        pubImage.src = 'img/grand_nord.jpg';
-        pubTitre.innerText = 'Voyage Éco-Responsable';
-        pubBouton.innerText = 'Découvrir';
-        pubBouton.style.background = '#00aaaa'; // Cyan
-        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Tourisme Vert');
+    else if (interet === 'Météo/Climat') {
+        pubImage.src = 'img/vague_chaleur.jpg'; 
+        pubTitre.innerText = 'Trop chaud chez vous ?';
+        pubBouton.innerText = 'Climatiseurs en Promo';
+        pubBouton.style.background = '#ff8800'; 
+        pubBouton.style.color = '#fff';
+        logEvent('PUBLICITÉ CIBLÉE', 'Algorithme de vente : Climatisation');
     }
 }
-
 
 // --- ÉTAPE FINALE : EXPORTATION DU FICHIER TXT ---
 function genererFichierLogs() {
