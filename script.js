@@ -1,6 +1,6 @@
 let contenuLogsTxt = "--- JOURNAL DE TRAÇAGE ACTUTORTUE ---\n\n";
 
-// --- FONCTION UTILITAIRE : ÉCRIRE DANS LA CONSOLE ---
+// --- FONCTION POUR ÉCRIRE DANS LA CONSOLE ---
 function logEvent(type, message, details = "") {
     const logsContainer = document.getElementById('logs');
     const now = new Date();
@@ -27,7 +27,7 @@ function logEvent(type, message, details = "") {
     // On ajoute le log en haut de la liste
     logsContainer.prepend(logEntry);
 
-    // --- PARTIE JOURNALISATION (Pour le fichier .txt) ---
+    // --- partie pour le fichier .txt ---
     // On nettoie les tags HTML éventuels du message pour avoir un texte propre dans le .txt
     const cleanDetails = details.replace(/<[^>]*>?/gm, ''); 
     contenuLogsTxt += `[${isoString}] ${type.toUpperCase()}\n`;
@@ -52,7 +52,7 @@ function simulateNetworkRequest(endpoint, params) {
 }
 
 // --- CHARGEMENT DU PIXEL INVISIBLE ---
-// Ce code s'exécute dès que la page est chargée, sans action de l'utilisateur.
+// s'exécute dès que la page est chargée, sans action de l'utilisateur.
 window.addEventListener('load', () => {
     
     // Récupération des vraies données techniques ACCESSIBLES en JS
@@ -130,8 +130,7 @@ function updateAds(interet) {
     const pubBouton = document.querySelector('.promo-btn');
     const pubTitre = document.querySelector('.promo-box p'); 
 
-    // Sécurité : si Adblock a quand même supprimé la pub, on ne fait rien pour ne pas planter
-
+    // Sécurité : si Adblock a quand même supprimé la pub <-- pb lors des tests
     if (!pubImage || !pubTitre || !pubBouton) return; 
 
     if (interet === 'Écologie/Science') {
@@ -159,7 +158,7 @@ function updateAds(interet) {
     }
 }
 
-// --- ÉTAPE FINALE : EXPORTATION DU FICHIER TXT ---
+// --- EXPORTATION DU FICHIER TXT ---
 function genererFichierLogs() {
     const blob = new Blob([contenuLogsTxt], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);

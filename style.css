@@ -4,7 +4,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; overflow: hidden; }
 
 .main-container { display: flex; height: 100vh; }
 
-/* Zone Site (65%) */
 .news-site { 
     width: 65%; 
     padding: 2rem; 
@@ -46,15 +45,15 @@ body { font-family: 'Inter', -apple-system, sans-serif; overflow: hidden; }
 
 .categories span { 
     margin-right: 2.5rem; 
-    color: #333;        /* Plus foncé pour être plus lisible */
-    font-size: 1.2rem;   /* Augmenté de 0.9rem à 1.2rem */
-    font-weight: 600;    /* Plus gras */
+    color: #333;    
+    font-size: 1.2rem;  
+    font-weight: 600;    
     cursor: pointer; 
     transition: color 0.2s;
 }
 
 .categories span:hover {
-    color: #2e7838; /* Change de couleur au survol */
+    color: #2e7838;
 }
 
 nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer; }
@@ -68,7 +67,6 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
 
 /* --- GESTION DES IMAGES --- */
 
-
 .article-img {
     width: 100%;     
     height: 200px;  
@@ -77,7 +75,6 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
     display: block;
 }
 
-/* Ajustement spécifique pour l'image "À LA UNE"*/
 .hero-image-container {
     width: 100%;
     max-height: 300px;
@@ -90,7 +87,6 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
     height: 300px;
 }
 
-/* Ajustement pour les petites cartes de la grille */
 .article-card .image {
     width: 100%;
     margin-bottom: 1rem;
@@ -101,7 +97,6 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
     margin-bottom: 4rem; 
 }
 
-/* Bannière de Cookies */
 .cookie-banner { 
     position: sticky; 
     bottom: 0;
@@ -120,7 +115,6 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
 .btn-primary { background: #2e7838; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 .btn-secondary { background: #444; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }
 
-/* Zone Monitor (35%) */
 .data-monitor { 
     width: 35%; 
     background: #0a0a0a; 
@@ -145,22 +139,22 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
 .system { color: #888; border-color: #444; }
 
 .content-wrapper {
-    display: flex; /* Active le mode colonnes */
-    gap: 20px;     /* Espace entre les articles et la pub */
+    display: flex;
+    gap: 20px; 
     margin-top: 20px;
 }
 
 /* Colonne de Gauche (Articles) */
 .news-column {
-    flex: 3; /* Prend 75% de l'espace */
+    flex: 3;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 articles côte à côte */
+    grid-template-columns: 1fr 1fr; 
     gap: 15px;
 }
 
 /* Colonne de Droite (Pubs & Tendances) */
 .promos-column {
-    flex: 1; /* Prend 25% de l'espace */
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -169,7 +163,7 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
 /* Design de la fausse pub */
 .promo-box {
     background-color: #fff5f5;
-    border: 2px dashed #ff4444; /* Bordure rouge pointillée visible */
+    border: 2px dashed #ff4444; 
     padding: 15px;
     text-align: center;
     border-radius: 8px;
@@ -198,7 +192,7 @@ nav span { margin-right: 1.5rem; color: #666; font-size: 0.9rem; cursor: pointer
 
 /* Style pour les requêtes HTTP simulées */
 .network-log {
-    color: #00ffff; /* Cyan hacker */
+    color: #00ffff; 
     font-family: 'Courier New', monospace;
     font-size: 0.75rem;
     word-break: break-all; /* Permet de couper les longues URL */
